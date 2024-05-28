@@ -1,0 +1,105 @@
+12)without port-
+s1)Ec2->security group(create)->launch instance->cpy Public IP in Bitvise->
+s2)sudo apt-get update,sudo apt-get upgrade,sudo apt-get install nginx,nginx -v
+    curl -SL https://deb.nodesource.com/setup_16.x|sudo -E bash -
+    sudo apt-get install nodejs, nodejs -v,cd/,pwd
+   git clone https://github.com/Rupsa1037/Rupsa_AWS_01.git,ls,cd Rupsa_AWS_01
+  ls,sudo npm install,npm -v,node index.js
+On another terminal-
+cd/,pwd,cd etc/nginx/sites-available,
+sudo nano default
+location /  {
+        proxy_pass http://localhost:4000;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+sudo systemctl restart nginx
+Back to previous terminal ->node index.js
+Ipv4*
+
+7)hosting-
+sudo apt update -y ,sudo apt upgrade -y,sudo apt install nginx -y
+sudo systemctl start nginx,sudo systemctl enable nginx 
+cd /var/www/,pwd,ls,sudo chmod 777 html 
+
+8)deploy a project from a local machine to GitHUb & vice versa.
+From local machine to GitHub-
+s1)sign up in GitHub with email/username & password
+s2)click on “NEW”
+s3)give the repository name,public and click on “Create repository”.
+s4)go to home and click on settings->developer settings->personal access token->token(classic)->generate a new token(classic).
+Under ‘generate a new token’, give name, expiration date upto 90 days and tick all the boxes.Lastly click on “Generate token”.
+s5)copy the generate token in notepad
+s6)go to that folder where your project/html files are there.Right click on that file->show more options->open Git bash->now write the following commands-
+git init
+git add .
+git status
+git commit -m “done”
+git remote add origin https://github.com/Rupsa1037/Rupsa_AWS_01.git
+git push -u origin master(one GitHub sign in page will open,paste the generated token)
+s6)go back to GitHub & open the repo there you can see those 3 html files.
+
+
+GitHub to local machine-
+s1)create a new,empty folder and right click on it,then go to Git bash & write the following command-
+git init
+git clone https://github.com/Rupsa1037/Rupsa_AWS_01.git
+s2)from github to local machine(folder) has been successfully cloned.
+
+9)Deploy a project from GitHub to EC2.
+s1)sign up in AWS console & search for EC2.
+s2)click on “Launch Instance”
+s3)give name,ubuntu,key,security(SSH,HTTP,HTTPS) and click on “Launch Instance”
+s4)go to the Instance ID,scroll down then go to security->security group then click on “Edit Inbound rules”.Add rule->Custom TCP->4000->0.0.0.0->Save
+s5)Then go to Instance ID,copy the Public IPv4 add. & paste it in Bitvise SSH Client
+s6)there give Public IPv4,ubuntu,global1 & click on “Login”->go to terminal console & type the following commands-
+sudo apt-get update,sudo apt-get upgrade,sudo apt-get install nginx,nginx -v
+curl -SL https://deb.nodesource.com/setup_16.x|sudo -E bash - ,sudo apt-get install nodejs
+nodejs -v,git clone https://github.com/Rupsa1037/Rupsa_AWS_01.git ,ls,cd Rupsa_AWS_01/
+ls ,npm install ,npm -v,node index.js
+s7)go back to Instance ID & copy the public IPv4 address and paste it on a new window,then add “:4000”.Then you can see the output.
+
+10)Deploy a project from GitHub to EC2 by creating a new security group and user data.
+In Advanced settings 
+#!/bin/bash
+apt-get update
+apt-get upgrade
+apt-get install -y nginx
+systemctl start nginx
+systemctl enable nginx
+apt-get install -y git
+curl -SL https://deb,nodesource.com/setup_16.x|sudo -E bash -
+apt-get install -y nodejs
+git clone https://github.com/Rupsa1037/Rup_AWS1.git
+npm install
+node index.js
+
+11)
+In Launch Template->Advances settings
+Auto-scale:
+In Advanced settings 
+#!/bin/bash
+apt-get update
+apt-get upgrade
+apt-get install -y nginx
+systemctl start nginx
+systemctl enable nginx
+apt-get install -y git
+curl -SL https://deb,nodesource.com/setup_16.x|sudo -E bash -
+apt-get install -y nodejs
+git clone https://github.com/Rupsa1037/Rup_AWS1.git
+npm install
+node index.js
+In bitvise terminal console after auto-scale creation-
+sudo nano infy.sh
+#!/bin/bash
+while(true)
+do
+        echo "Inside Loop"
+done
+sudo chmod +x infy.sh
+sh infy.sh
+
